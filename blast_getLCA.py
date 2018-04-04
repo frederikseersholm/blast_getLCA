@@ -264,9 +264,11 @@ def main():
     print 'Identity threshold: '+str(options.threshold)
     
     #Open file defining taxids to ingore and store them as a list
-    with open(options.wrongtax) as file:
-        wrong_tax = [line.split(';')[0].split(',')[0].strip() for line in file]
-    wrong_tax=[i for i in wrong_tax if not any(c.isalpha() for c in i)]
+    wrong_tax=[]
+    if options.wrongtax!=None:
+        with open(options.wrongtax) as file:
+            wrong_tax = [line.split(';')[0].split(',')[0].strip() for line in file]
+        wrong_tax=[i for i in wrong_tax if not any(c.isalpha() for c in i)]
     
     #TAXIDS to ignore:
     #'155900'] Hansen, Willerslev et al Diverse animal records
