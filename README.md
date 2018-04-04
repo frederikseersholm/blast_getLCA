@@ -42,7 +42,7 @@ tar xpvf master.tar.gz
 cd blast_getLCA-master
 ```
 #### 2) Run the script prepare_getLCA_script.sh
-This script downloads the NCBI taxonomy files nodes.dmp and names.dmp to the folder 'taxdump', and adds the paths to the files to the python script.
+This script downloads the NCBI taxonomy files nodes.dmp and names.dmp to the folder 'taxdump', and adds the paths to the files in the python script.
 ```
 bash prepare_getLCA_script.sh
 ```
