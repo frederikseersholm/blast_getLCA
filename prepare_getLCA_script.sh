@@ -1,3 +1,4 @@
+#! /bin/bash -x
 mkdir taxdump 
 wget ftp.ncbi.nih.gov/pub/taxonomy/taxdump.tar.gz 
 tar -xzf taxdump.tar.gz -C taxdump 
