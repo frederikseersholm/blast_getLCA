@@ -67,7 +67,7 @@ This script downloads NCBI lists with gi-numbers and their associated taxIDs, wh
 bash prepare_add_taxid2blast_script.sh
 ```
 #### 3) Add taxid information to blast file by running the script add_taxid2blast.py 
-This script downloads the NCBI taxonomy files nodes.dmp and names.dmp to the folder 'taxdump', and adds the paths to the files to the python script.
+This script parses the blast file and appends the taxID to the subject sequence identifier (column 2 in blast file).
 ```
 python add_taxid2blast.py test.blast
 ```
