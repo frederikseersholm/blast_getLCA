@@ -16,7 +16,7 @@ The output is a tsv file, with one row for each read, and the following columns:
  - **qseqlength**  Query sequence length
  - **IDp** Identity percentage for the best hit(s)
  - **gapmm** Gaps, mismatches and length of the best alignment(s), separated by underscore
- - **drop** Information on whether the LCA have been dropped to genus or family based on a low identity percent to the best hit(s)
+ - **drop** Information on whether the LCA have been dropped to genus or family level based on a low identity percent to the best hit(s)
 
 ## Options
 ```
