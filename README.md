@@ -60,3 +60,13 @@ In order for the blast_getLCA script to work, fasta files should be blasted with
 ```
 blastn -outfmt "6 qseqid sacc sseqid pident qlen length mismatch gapopen gaps evalue bitscore nident" -max_target_seqs 100 -reward 1 -db $DB -query ${FILENAME}.fasta -out ${FILENAME}.blast
 ```
+#### 2) Run the script prepare_getLCA_script.sh (only required first time you run the script)
+This script downloads the NCBI taxonomy files nodes.dmp and names.dmp to the folder 'taxdump', and adds the paths to the files to the python script.
+```
+bash prepare_getLCA_script.sh
+```
+#### 3) Run the script prepare_getLCA_script.sh (only required first time you run the script)
+This script downloads the NCBI taxonomy files nodes.dmp and names.dmp to the folder 'taxdump', and adds the paths to the files to the python script.
+```
+bash prepare_getLCA_script.sh
+```
