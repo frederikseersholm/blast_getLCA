@@ -7,7 +7,7 @@ The output is a tsv file, with one row for each read, and the following columns:
 - **qseqid**  The identifier of the query sequence 
 - **LCA**   The lowest common ancestor of the read, with info on genus, family, order and class of the assigned taxon
 - **rank** Rank of the lowest common ancestor
-- **TaxIDs** TaxIDs of the the best matching references in the database used separated by colon
+- **TaxIDs** TaxIDs of the the best matching reference sequences in the database used to infer the lowest common ancestor, separated by colon
 - **Stats** Basic statistics of the assignment (separated by underscore): 
   - *Tothits* = total number of alignments for the read, 
   - *accepted-hits* = total number of best (equally good) hits for the read.
