@@ -52,3 +52,6 @@ This script downloads the NCBI taxonomy files nodes.dmp and names.dmp to the fol
 python blast_getLCA.py test.taxid.blast
 ```
 
+## Generate a suitable blast file for analysis
+
+#### 1) Download and unpack the blast_getLCA master
