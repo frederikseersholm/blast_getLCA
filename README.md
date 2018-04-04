@@ -57,6 +57,7 @@ python blast_getLCA.py test.taxid.blast
 #### 1) Blast fasta file with custom output format 6
 In order for the blast_getLCA script to work, fasta files should be blasted with the following output format:
   - outfmt "6 qseqid sacc sseqid pident qlen length mismatch gapopen gaps evalue bitscore nident"
+
 For example as follows:
 ```
 blastn -outfmt "6 qseqid sacc sseqid pident qlen length mismatch gapopen gaps evalue bitscore nident" -max_target_seqs 100 -reward 1 -db $DB -query ${FILENAME}.fasta -out ${FILENAME}.blast
