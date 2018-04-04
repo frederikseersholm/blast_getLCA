@@ -12,4 +12,4 @@ cd ..
 
 path=$(pwd)"/Accession2taxid/gi_taxid_nucl.dmp.*"
 
-sed -i.bak 's|/PATH/to/FILE/Accession2taxid/nucl_\*.Accession2taxid.??|'$path'|g' add_taxid2blast.py 
+sed -i.bak 's|/PATH/to/FILE/Accession2taxid/nucl_\*.accession2taxid.??|'$path'|g' add_taxid2blast.py 
