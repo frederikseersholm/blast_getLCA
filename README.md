@@ -2,7 +2,7 @@
 ## Introduction
 The blast_getLCA algorithm parses a blast file (format 6), and assigns each read to the lowest common ancestor of the best hit(s) in the blast file.
 
-### Example
+**Example:**
 ```python blast_getLCA.py -t 0.9 test.taxid.blast```
 
 The output is a tsv file, with one row for each read, and the following columns: 
