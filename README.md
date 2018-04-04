@@ -1,6 +1,23 @@
 # blast_getLCA
 ## Introduction
 The blast_getLCA algorithm parses a blast file (format 6), and assigns each read to the lowest common ancestor of the best hit(s) in the blast file.  
+
+The output is a tsv file, with one row for each read, and the following columns: 
+
+- **qseqid**  The identifier of the query sequence 
+- **LCA**   The lowest common ancestor of the read, with info on genus, family, order and class of the assigned taxon
+- **rank** Rank of the lowest common ancestor
+- **TaxIDs** TaxIDs of the the best matching references in the database used separated by colon
+- **Stats** Basic statistics of the assignment (separated by underscore): 
+  - *Tothits* = total number of alignments for the read, 
+  - *accepted-hits* = total number of best (equally good) hits for the read.
+  - *Min-Nm* = Edit distance for the best hit(s)
+  - *IDp* = Identity percentage for the best hit(s)
+ - **qseqlength**  Query sequence length
+ - **IDp** Identity percentage for the best hit(s)
+ - **gapmm** Gaps, mismatches and length of the best alignment(s), separated by underscore
+ - **drop** Information on whether the LCA have been dropped to genus or family based on a low identity percent to the best hit(s)
+
 ## Options
 ```
 Options:
