@@ -1,8 +1,8 @@
 import fileinput
 import optparse
 
-names=open('/Users/frederikseersholm1/Frederik/PhD/Databases/TAXO/names.dmp','r')
-nodes=open('/Users/frederikseersholm1/Frederik/PhD/Databases/TAXO/nodes.dmp','r')
+names=open('/PATH/to/FILE/taxdump/names.dmp','r')
+nodes=open('/PATH/to/FILE/taxdump/nodes.dmp','r')
 
 def get_LCA_from_blast(blastlines,idthreshold):
     nms=[]
