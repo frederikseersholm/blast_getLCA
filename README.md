@@ -2,6 +2,7 @@
 ## Introduction
 
 ## Options
+```
 Options:
   -h, --help            show this help message and exit
   -i WRONGTAX, --ignoretaxid=WRONGTAX
@@ -11,7 +12,7 @@ Options:
                         Ignores reads where the best alignment has less than a
                         certain percentage identity to the refenrence
                         [default=0.95]
-
+```
 ## Download and Install
 
 #### 1) Download and unpack the blast_getLCA master
