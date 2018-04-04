@@ -3,7 +3,7 @@
 ## Guide to run the program blast_getLCA.py
 
 #### 1) Run the script prepare_getLCA_script.sh
-blabla test
+This script downloads the NCBI taxonomy files nodes.dmp and names.dmp, and adds the paths to the files to the python script.
 ```
 bash prepare_getLCA_script.sh
 ```
