@@ -63,7 +63,7 @@ For example as follows:
 blastn -outfmt "6 qseqid sacc sseqid pident qlen length mismatch gapopen gaps evalue bitscore nident" -max_target_seqs 100 -reward 1 -db $DB -query ${FILENAME}.fasta -out ${FILENAME}.blast
 ```
 #### 2) Run the script prepare_add_taxid2blast_script.sh (only required first time you run the script)
-This script downloads the NCBI taxonomy files nodes.dmp and names.dmp to the folder 'taxdump', and adds the paths to the files to the python script.
+This script downloads NCBI lists with gi-numbers and their corresponding taxIDs, which is used when adding taxIDs to blast files. After downloading, the script adds the paths of the NCBI files to the python script add_taxid2blast.py.
 ```
 bash prepare_add_taxid2blast_script.sh
 ```
