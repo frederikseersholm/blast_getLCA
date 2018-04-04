@@ -1,6 +1,6 @@
 # blast_getLCA
 ## Introduction
-
+The blast_getLCA algorithm parses a blast file (format 6), and assigns each read to the lowest common ancestor of the best hit(s) in the blast file.  
 ## Options
 ```
 Options:
