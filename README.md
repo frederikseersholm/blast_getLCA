@@ -1,5 +1,5 @@
 # blast_getLCA
-The blast_getLCA algorithm parses a blast file, typically generated from aplicon data, and assigns each read to the lowest common ancestor of the best hit(s) in the blast file.
+The blast_getLCA algorithm parses a blast file, typically generated from amplicon data, and assigns each read to the lowest common ancestor of the best hit(s) in the blast file.
 ## Getting started
 ### Download and Install
 
@@ -38,7 +38,7 @@ This script parses the blast file and appends the taxID to the subject sequence 
 ```
 python add_taxid2blast.py test.blast
 ```
-### Output
+## Output
 The output is a tsv file, with one row for each read, and the following columns: 
 
 - **qseqid**  The identifier of the query sequence 
@@ -55,7 +55,7 @@ The output is a tsv file, with one row for each read, and the following columns:
  - **gapmm** Gaps, mismatches and length of the best alignment(s), separated by underscore
  - **drop** Information on whether the LCA have been dropped to genus or family level based on a low identity percent to the best hit(s)
 
-### Options
+## Options
 ```
 Options:
   -h, --help            show this help message and exit
