@@ -10,6 +10,6 @@ split -l 50000000 nucl_gss.accession2taxid nucl_gss.accession2taxid.
 split -l 50000000 nucl_wgs.accession2taxid nucl_wgs.accession2taxid.
 cd ..
 
-path=$(pwd)"/Accession2taxid/gi_taxid_nucl.dmp.*"
+path=$(pwd)"/Accession2taxid/nucl_*.accession2taxid.??"
 
 sed -i.bak 's|/PATH/to/FILE/Accession2taxid/nucl_\*.accession2taxid.??|'$path'|g' add_taxid2blast.py 
