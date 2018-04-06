@@ -36,7 +36,7 @@ bash prepare_add_taxid2blast_script.sh
 #### 3) Add taxid information to blast file by running the script add_taxid2blast.py 
 This script parses the blast file and appends the taxID to the subject sequence identifier (column 2 in blast file).
 ```
-python add_taxid2blast.py test.blast
+python add_taxid2blast.py test2.blast
 ```
 ## Output
 The output is a tsv file, with one row for each read, and the following columns: 
