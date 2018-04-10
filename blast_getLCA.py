@@ -170,7 +170,7 @@ def find_parents_w_rank_short(current_taxid):
     b=find_rankofparents(current_taxid)
     output=[name[i]+';'+j for i,j in zip(a,b) if j in ['subspecies','species','genus','family','suborder','order','superorder','class']]
     
-    if a[0]+';'+b[0] not in output:
+    if name[a[0]]+';'+b[0] not in output:
         output=[name[a[0]]+';'+b[0]]+output
     return(output)
 
