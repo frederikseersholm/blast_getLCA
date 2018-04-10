@@ -64,8 +64,14 @@ Options:
                         contain taxids
   -t THRESHOLD, --threshold=THRESHOLD
                         Ignores reads where the best alignment has less than a
-                        certain percentage identity to the refenrence
-                        [default=0.95]
+                        certain percentage identity to the reference
+                        [default=95]
+  -l LIMITS, --limits=LIMITS
+                        List of identity thresholds which will inform the
+                        algorithm to drop lowest common ancestor to genus
+                        (default: 95-98%), family level (default: 90-95%) or
+                        order level (default: below 90%). Separated by dash
+                        '-' [default=98-95-90]
 ```
 
 
