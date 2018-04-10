@@ -1,10 +1,10 @@
 import fileinput
 import optparse
 
-names=open('/PATH/to/FILE/taxdump/names.dmp','r')
-nodes=open('/PATH/to/FILE/taxdump/nodes.dmp','r')
+names=open('/Users/frederikseersholm1/Frederik/PhD/tools/forgithub/blast_getLCA-master/taxdump/names.dmp','r')
+nodes=open('/Users/frederikseersholm1/Frederik/PhD/tools/forgithub/blast_getLCA-master/taxdump/nodes.dmp','r')
 
-def get_LCA_from_blast(blastlines,idthreshold):
+def get_LCA_from_blast(blastlines,idthreshold,limits):
     nms=[]
     threshold=[]
     ids=[]
@@ -54,18 +54,17 @@ def get_LCA_from_blast(blastlines,idthreshold):
         lca_id='NOT_FOUND'
     
     nm=nms[0]/float(length) 
-    if (nm>(1-float(idthreshold))):#Similarity threshold set to "threshold" [default=95%]
-        lca='NOMATCH_similarity_below_'+str(float(idthreshold)*100).replace('.0','')+'%'+lca
+    if (nm>(1-float(idthreshold)/100)):#Similarity threshold set to "threshold" [default=95%]
+        lca='NOMATCH_similarity_below_'+str(float(idthreshold)).replace('.0','')+'%'+lca
         lca_id='NOT_FOUND'
     
 ################## Assign to higher order taxa based on ID-percent thresholds (limits) ################
     drop='Not_dropped'
-    limits=[98,95,90]
     i=float(idps[0])
-    if 'NOMATCH' not in lca and limits[0]>i>=limits[2]:
+    if 'NOMATCH' not in lca and limits[0]>i:
         
-        which_drop=[limits[0]>i>=limits[1],limits[1]>i>=limits[2]]
-        drop_level=[i for i,j in zip(['genus','family'],which_drop) if j]
+        which_drop=[limits[0]>i>=limits[1],limits[1]>i>=limits[2],limits[2]>i]
+        drop_level=[i for i,j in zip(['genus','family','order'],which_drop) if j]
         drop='Dropped2'+drop_level[0]+lca.split(';')[0]
         lca=':'.join(drop_to_level(lca_id,drop_level[0]))
    
@@ -256,13 +255,13 @@ def main():
 ############################ Import arguments ##############    
     p = optparse.OptionParser()
     p.add_option('--ignoretaxid', '-i',dest="wrongtax",help="csv file of taxids to ignore, first column should contain taxids")
-    p.add_option("-t", "--threshold", dest="threshold", default=0.95, help="Ignores reads where the best alignment has less than a certain percentage identity to the refenrence [default=0.95]")
+    p.add_option("-t", "--threshold", dest="threshold", default=95, help="Ignores reads where the best alignment has less than a certain percentage identity to the reference [default=95]")
+    p.add_option("-l", "--limits", dest="limits", default='98-95-90', help="List of identity thresholds which will inform the algorithm to drop lowest common ancestor to genus (default: 95-98%), family level (default: 90-95%) or order level (default: below 90%). Separated by dash '-' [default=98-95-90]")
     options, arguments = p.parse_args()
     infiles=arguments
-    
-    #print options.length	
+    limits=[int(i) for i in options.limits.split('-')]	
     print 'Identity threshold: '+str(options.threshold)
-    
+    print 'Identity limits: '+','.join([str(i) for i in limits])
     #Open file defining taxids to ingore and store them as a list
     wrong_tax=[]
     if options.wrongtax!=None:
@@ -297,7 +296,7 @@ def main():
                 lines2=[line2 for line2 in lines if line2.split()[1].split('|')[0] not in wrong_tax]
 
                 if len(lines2)>0:
-                    outlines.append(get_LCA_from_blast(lines2,options.threshold))
+                    outlines.append(get_LCA_from_blast(lines2,options.threshold,limits))
                 else:
                     outlines.append(lines[0].split()[0]+'\tNOMATCH_all_taxids_ignored\t\t\t\t\t\t\t\n')
                 
@@ -315,7 +314,7 @@ def main():
         if 'lines' in locals():
             
             lines2=[line2 for line2 in lines if line2.split()[1].split('|')[0] not in wrong_tax]
-            outlines.append(get_LCA_from_blast(lines2,options.threshold))
+            outlines.append(get_LCA_from_blast(lines2,options.threshold,limits))
 
 ############################ Sort output lines and print to file ############            
         [outfile.write(i) for i in smartsort(outlines)]
