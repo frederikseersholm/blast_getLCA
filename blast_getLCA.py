@@ -270,15 +270,7 @@ def main():
             wrong_tax = [line.split(';')[0].split(',')[0].strip() for line in file]
         wrong_tax=[i for i in wrong_tax if not any(c.isalpha() for c in i)]
     
-    #TAXIDS to ignore:
-    #'155900'] Hansen, Willerslev et al Diverse animal records
-    #1749399' Molecular analysis of vertebrates and plants in leopard cat (Prionailurus bengalensis) scat in southwest China
-    #'37029' Prionailurus bengalensis == Sus scrofa
-    #Taxid: 32644. GI:'FR873673.1'. UNID rat. Molecular analysis of vertebrates and plants in leopard cat (Prionailurus bengalensis) scat in southwest China
-    #419950: Phascolosoma esculenta Exact same seq as Bos taurus
-    #TAXID: 547489. GI: JN317319.1. Antibiotic resistance is ancient. Lagopus
-    #32546=Dasyurus spartacus, 9280=Dasyurus hallucatus, 32545=Dasyurus albopunctatus
-    
+
     #add taxids that should always be ignored
     [wrong_tax.append(taxid) for taxid in ['1749399','155900','37029','32644','419950','547489']]
     
