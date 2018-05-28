@@ -15,6 +15,7 @@ This script downloads the NCBI taxonomy files nodes.dmp and names.dmp to the fol
 bash prepare_getLCA_script.sh
 ```
 #### 3) Run the script on the supplied test blast-file, modified for the blast_getLCA algorithm
+Please make sure that you are using python 2.7 for this step. This can be specified by calling 'python2.7' instead of just 'python'.
 ```
 python blast_getLCA.py test.taxid.blast
 ```
