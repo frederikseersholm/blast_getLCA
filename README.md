@@ -47,8 +47,8 @@ The output is a tsv file, with one row for each read, and the following columns:
 - **rank** Rank of the lowest common ancestor
 - **TaxIDs** TaxIDs of the the best matching reference sequences in the database used to infer the lowest common ancestor, separated by colon
 - **Stats** Basic statistics of the assignment (separated by underscore): 
-  - *Tothits* = total number of alignments for the read, 
-  - *accepted-hits* = total number of best (equally good) hits for the read.
+  - *Tothits* = total number of alignments for the read 
+  - *accepted-hits* = total number of best (equally good) hits for the read
   - *Min-Nm* = Edit distance for the best hit(s)
   - *IDp* = Identity percentage for the best hit(s)
  - **qseqlength**  Query sequence length
