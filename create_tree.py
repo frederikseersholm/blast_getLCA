@@ -1,6 +1,4 @@
 import optparse
-import sys
-sys.path.insert(0, '/Users/frederikseersholm1/Frederik/PhD/tools/blast_getLCA-master') 
 
 from blast_getLCA import *
 
