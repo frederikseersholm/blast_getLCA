@@ -4,6 +4,7 @@ import optparse
 names=open('/PATH/to/FILE/taxdump/names.dmp','r')
 nodes=open('/PATH/to/FILE/taxdump/nodes.dmp','r')
 
+
 def get_LCA_from_blast(blastlines,idthreshold,limits):
     nms=[]
     threshold=[]
@@ -48,29 +49,31 @@ def get_LCA_from_blast(blastlines,idthreshold,limits):
 ####################find LCA if more than 1 id has been accepted################ 
     try:
         lca_id=taxidlist2LCA(ids)
-        lca=':'.join(find_parents_w_rank_short(lca_id)).replace(' ','_')
     except:
-        lca='NOMATCH_TAXID_NOT_FOUND'
         lca_id='NOT_FOUND'
+
+################## Assign to higher order taxa based on ID-percent thresholds (limits) ################
+    drop='Not_dropped'
+    idp=float(idps[0])
     
+    if limits[0]>idp and idp>float(idthreshold):
+        
+        which_drop=[limits[0]>idp>=limits[1],limits[1]>idp>=limits[2],limits[2]>idp]
+        drop_level=[i for i,j in zip(['genus','family','order'],which_drop) if j]
+        drop='Dropped2'+drop_level[0]+name[lca_id].replace(' ','_')
+        lca_id=drop_to_level2(lca_id,drop_level[0])
+
+####################Filter out based on ID-threshold################
+    lca=':'.join(find_parents_w_rank_short(lca_id)).replace(' ','_')
     nm=nms[0]/float(length) 
     if (nm>(1-float(idthreshold)/100)):#Similarity threshold set to "threshold" [default=95%]
         lca='NOMATCH_similarity_below_'+str(float(idthreshold)).replace('.0','')+'%'+lca
         lca_id='NOT_FOUND'
-    
-################## Assign to higher order taxa based on ID-percent thresholds (limits) ################
-    drop='Not_dropped'
-    i=float(idps[0])
-    if 'NOMATCH' not in lca and limits[0]>i:
-        
-        which_drop=[limits[0]>i>=limits[1],limits[1]>i>=limits[2],limits[2]>i]
-        drop_level=[i for i,j in zip(['genus','family','order'],which_drop) if j]
-        drop='Dropped2'+drop_level[0]+lca.split(';')[0]
-        lca=':'.join(drop_to_level(lca_id,drop_level[0]))
+
    
 ##################output line###############  
     stats='tothits:'+str(len(blastlines))+'_accepted-hits:'+str(len(ids))+'_Min-Nm:'+str(nms[0])+'_IDp:'+str(idps[0])
-    return('\t'.join([text[0],lca,get_rank(lca_id).replace(' ','_'),':'.join(set(ids)),stats,length,':'.join(set(idps)),':'.join(set(gap_mm)),drop])+'\n')
+    return('\t'.join([text[0],lca,get_rank(lca_id).replace(' ','_'),':'.join(set(ids)),stats,length,':'.join(set(idps)),':'.join(set(gap_mm)),drop,lca_id])+'\n')
 
 ################################################################################################
 
@@ -98,6 +101,7 @@ for line in names.readlines():
     id_from_name[text[1]]=text[0]
     if text[3]=='scientific name':
         name[text[0]]=text[1]
+
         
 
 lines_processed = 0        
@@ -146,15 +150,12 @@ def get_rank(taxid):
 
 
 def find_parents(current_taxid):
-    # first look up the taxid for the species of interest
     parents=[] 
-    # use a while loop to continue searching until we find what we are looking for
+    #continue searching until loop reaches 'root' in tree of life
     found = False
     while found == False:
         parents.append(current_taxid)
-        # find the rank of the parent
         if (current_taxid == '1'):
-            #print 'hej'
             return(parents)
             found = True      
         else:
@@ -188,15 +189,19 @@ def find_parents_smartsort(current_taxid,org_name):
     output.append(org_name)
     return(output)
 
-def drop_to_level(taxid,level):
+def find_genus(taxid):
+    return(drop_to_level2(taxid,'genus'))
     
-    newname=[i.split(';')[0] for i in find_parents_w_rank(taxid) if i.split(';')[1]==level]
+def drop_to_level2(taxid,level):
+    
     try:
-        new_taxid=id_from_name[newname[0]]
-        return(find_parents_w_rank_short(new_taxid))
+        newtaxid=[taxid2 for taxid2 in find_parents(taxid) if rank[taxid2]==level]
+        if len(newtaxid)==0:
+            newtaxid=[taxid]
+        return(newtaxid[0])
     except:
-        return(find_parents_w_rank_short(taxid))
-
+        return('NOT_FOUND')
+  
     
 
 def find_LCA(taxid1,taxid2):
@@ -227,15 +232,12 @@ def taxidlist2LCA(taxid_list2):
 def smartsort(getLCA_lines):
     parents=[]
     for line in getLCA_lines:
-        name=line.split()[1].split(';')[0].replace('_',' ')
-        if '%' in name:
-            name=name.split('%')[1]
-        try:
-            taxid=id_from_name[name]
-        except:
-            taxid='NOT_FOUND'
+
+        taxid=line.split()[9]
+        
         try:
             parents.append(find_parents_smartsort(taxid,line))
+            
         except:
             parents.append(['AA','AA','AA','AA','AA','AA','AA','AA','AA',line])
 
@@ -324,3 +326,4 @@ def main():
     
 if __name__ == '__main__':
     main() 
+
