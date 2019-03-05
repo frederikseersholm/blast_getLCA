@@ -4,7 +4,6 @@ import optparse
 names=open('/PATH/to/FILE/taxdump/names.dmp','r')
 nodes=open('/PATH/to/FILE/taxdump/nodes.dmp','r')
 
-
 def get_LCA_from_blast(blastlines,idthreshold,limits):
     nms=[]
     threshold=[]
@@ -42,15 +41,14 @@ def get_LCA_from_blast(blastlines,idthreshold,limits):
         ids.append(taxid)
         names.append(text[1])
         gap_mm.append('_'.join([gaps,mm,length]))
-        idps.append(str(idp))
-        
+        idps.append(str(idp))  
     if not all([i==idps[0] for i in idps]):
         idps.append('NOT_ALL_MATCH')
 ####################find LCA if more than 1 id has been accepted################ 
     try:
         lca_id=taxidlist2LCA(ids)
         if not lca_id:
-            lca_id='1' #assign to root if best taxids are unknown
+            lca_id='1'
     except:
         lca_id='NOT_FOUND'
 
@@ -129,25 +127,19 @@ def find_rankofparents(current_taxid):
     parents=[] 
     found = False
     while found == False:
-        parents.append(rank[current_taxid])
-        if (current_taxid == '1'):
+        parents.append(rank.get(current_taxid,'NOT_FOUND'))
+        if (current_taxid == '1' or current_taxid == 'NOT_FOUND'):
             return(parents)
             found = True      
         else:
-            current_taxid = parent[current_taxid]
+            current_taxid = parent.get(current_taxid,'NOT_FOUND')
+            
 def name1(taxid):
     textname=name[taxid]
     return(textname)
             
 def get_rank(taxid):
-    if taxid!='NOT_FOUND':
-                
-        try:
-            rank1=rank[taxid]
-        except:
-            rank1='rank_not_found'
-    else:
-        rank1=taxid
+    rank1=rank.get(taxid,'rank_not_found')        
     return(rank1)
 
 
@@ -157,11 +149,11 @@ def find_parents(current_taxid):
     found = False
     while found == False:
         parents.append(current_taxid)
-        if (current_taxid == '1'):
+        if (current_taxid == '1' or current_taxid == 'NOT_FOUND'):
             return(parents)
             found = True      
         else:
-            current_taxid = parent[current_taxid]
+            current_taxid = parent.get(current_taxid,'NOT_FOUND')
 
 def find_parents_w_rank(current_taxid):
     a=find_parents(current_taxid)
@@ -171,10 +163,10 @@ def find_parents_w_rank(current_taxid):
 def find_parents_w_rank_short(current_taxid):
     a=find_parents(current_taxid)
     b=find_rankofparents(current_taxid)
-    output=[name[i]+';'+j for i,j in zip(a,b) if j in ['subspecies','species','genus','family','suborder','order','superorder','class']]
+    output=[name.get(i,'NOT_FOUND')+';'+j for i,j in zip(a,b) if j in ['subspecies','species','genus','family','suborder','order','superorder','class']]
     
-    if name[a[0]]+';'+b[0] not in output:
-        output=[name[a[0]]+';'+b[0]]+output
+    if name.get(a[0],'NOT_FOUND')+';'+b[0] not in output:
+        output=[name.get(a[0],'NOT_FOUND')+';'+b[0]]+output
     return(output)
 
 def find_parents_smartsort(current_taxid,org_name):
@@ -195,14 +187,12 @@ def find_genus(taxid):
     return(drop_to_level2(taxid,'genus'))
     
 def drop_to_level2(taxid,level):
-    
-    try:
-        newtaxid=[taxid2 for taxid2 in find_parents(taxid) if rank[taxid2]==level]
-        if len(newtaxid)==0:
-            newtaxid=[taxid]
-        return(newtaxid[0])
-    except:
-        return('NOT_FOUND')
+    newtaxid=[taxid2 for taxid2 in find_parents(taxid) if rank.get(taxid2,'NOT_FOUND')==level]
+    if len(newtaxid)==0:
+        #newtaxid=['NOT_FOUND']
+        newtaxid=[taxid]
+    return(newtaxid[0])
+
   
     
 
@@ -211,10 +201,17 @@ def find_LCA(taxid1,taxid2):
         if i in find_parents(taxid2):
             return(i)
             break
+    if 'NOT_FOUND' not in find_parents(taxid1):
+        return(taxid1)
+    elif 'NOT_FOUND' not in find_parents(taxid2):
+        return(taxid2)
+    else:
+        return('NOT_FOUND')
 
 def taxidlist2LCA(taxid_list2):
     count=0
     prev_LCA_id=[]
+    notfound=[]
     taxid_list=[i for i in taxid_list2 if 'TAXID_NOT_FOUND' not in i]
     for taxid in taxid_list:
         count+=1
@@ -224,12 +221,15 @@ def taxidlist2LCA(taxid_list2):
             continue
 
         else:
-            
-            try:
-                prev_LCA_id=find_LCA(taxid,prev_LCA_id)
-            except:
-                continue
-    return(prev_LCA_id)
+            prev_LCA_id2=find_LCA(taxid,prev_LCA_id)
+            notfound.append(prev_LCA_id2)
+            if prev_LCA_id2!='NOT_FOUND':
+                prev_LCA_id=prev_LCA_id2
+
+    if set(notfound)==set(['NOT_FOUND']):
+        return('NOT_FOUND')
+    else:
+        return(prev_LCA_id)
 
 def smartsort(getLCA_lines):
     parents=[]
