@@ -40,10 +40,10 @@ def find_tree(taxid_list):
         
         output2=[]
         
-        #change output from taxids to taxon names
-        for i in output.split(','):
-            taxid=i.split('XX')[1]
-            output2.append(i.replace('XX'+taxid+'XX',name[taxid]))
+    #change output from taxids to taxon names
+    for i in output.split(','):
+        taxid=i.split('XX')[1]
+        output2.append(i.replace('XX'+taxid+'XX',name[taxid]))
     output3=','.join(output2).replace(':','_')
     return(output3)
     
