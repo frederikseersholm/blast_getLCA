@@ -44,7 +44,9 @@ def find_tree(taxid_list):
         for i in output.split(','):
             taxid=i.split('XX')[1]
             output2.append(i.replace('XX'+taxid+'XX',name[taxid]))
-    return(','.join(output2))
+    output3=','.join(output2).replace(':','_')
+    return(output3)
+    
 
 ################################################################################################
 
