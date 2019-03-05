@@ -49,6 +49,8 @@ def get_LCA_from_blast(blastlines,idthreshold,limits):
 ####################find LCA if more than 1 id has been accepted################ 
     try:
         lca_id=taxidlist2LCA(ids)
+        if not lca_id:
+            lca_id='1' #assign to root if best taxids are unknown
     except:
         lca_id='NOT_FOUND'
 
