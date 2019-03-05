@@ -5,7 +5,7 @@ from blast_getLCA import *
 def find_tree(taxid_list):
     
     int_nodes=['1']
-    output='root;'
+    output='XX1XX;'
     cont=0
     
     while cont<2:
@@ -33,14 +33,18 @@ def find_tree(taxid_list):
             [int_nodes.append(i) for i in u_nodes2]
             #print 'int_nodes',int_nodes
     
-            join_str='('+','.join([name[i] for i in u_nodes2])+')'
-            #print join_str, name[group]
-            output=output.replace(name[group],join_str)
-            #print output
+            join_str='('+','.join(['XX'+str(i)+'XX' for i in u_nodes2])+')'
+            output=output.replace('XX'+str(group)+'XX',join_str)
         if len(int_nodes)>=len(taxid_list):
             cont+=1 #this step ensures that, once all nodes have been resolved a last loop is run to change the names of all nodes to the lowest possible
-    
-    return(output)
+        
+        output2=[]
+        
+        #change output from taxids to taxon names
+        for i in output.split(','):
+            taxid=i.split('XX')[1]
+            output2.append(i.replace('XX'+taxid+'XX',name[taxid]))
+    return(','.join(output2))
 
 ################################################################################################
 
@@ -99,13 +103,10 @@ def main():
     
     [[parents.append(taxid_list) for taxid_list in find_parents(taxid)] for taxid in taxids]
     taxids=[taxid for taxid in taxids if parents.count(taxid)==1]
-    #taxids=[taxid for taxid in taxids if taxid !='9823']
-    
-    #print [name[i] for i in taxids]
+
 
     ###################
     tree=find_tree(taxids)
-    #print tree
     outfile.write(tree+'\n')
 
 #####################
