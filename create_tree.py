@@ -78,7 +78,7 @@ def main():
     for line in infile.readlines():
         taxid=line.split()[9]
         
-        if taxid=='NOT_FOUND':
+        if taxid=='NOT_FOUND' or name.get(taxid,'NOT_FOUND')=='NOT_FOUND':
             continue
 
         if options.wrongtax!='no_ignore':
