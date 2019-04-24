@@ -60,7 +60,7 @@ def get_LCA_from_blast(blastlines,idthreshold,limits):
         
         which_drop=[limits[0]>idp>=limits[1],limits[1]>idp>=limits[2],limits[2]>idp]
         drop_level=[i for i,j in zip(['genus','family','order'],which_drop) if j]
-        drop='Dropped2'+drop_level[0]+name[lca_id].replace(' ','_')
+        drop='Dropped2'+drop_level[0]+name.get(lca_id,'NOT_FOUND').replace(' ','_')
         lca_id=drop_to_level2(lca_id,drop_level[0])
 
 ####################Filter out based on ID-threshold################
