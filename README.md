@@ -78,6 +78,10 @@ Options:
 ## System Requirements
 
 This software has been tested on the following operating systems:
-- MacOS
-- **Linux**
+- macOS Mojave version 10.14.6
+- CentOS Linux 7 (Core)
+- 
+
+Software dependencies:
+- python2.7
 
