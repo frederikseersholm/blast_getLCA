@@ -10,12 +10,12 @@ tar xpvf master.tar.gz
 cd blast_getLCA-master
 ```
 #### 2) Run the script prepare_getLCA_script.sh
-This script downloads the NCBI taxonomy files nodes.dmp and names.dmp to the folder 'taxdump', and adds the paths to the files in the python script (expected run time ~1min).
+This script downloads the NCBI taxonomy files nodes.dmp and names.dmp to the folder 'taxdump', and adds the paths to the files in the python script (expected run time ~1 min).
 ```
 bash prepare_getLCA_script.sh
 ```
 #### 3) Run the script on the supplied test blast-file, modified for the blast_getLCA algorithm
-Please make sure that you are using python 2.7 for this step. This can be specified by calling 'python2.7' instead of just 'python'. Expected run time ~1min.
+Please make sure that you are using python 2.7 for this step. This can be specified by calling 'python2.7' instead of just 'python'. Expected run time ~1 min.
 ```
 python blast_getLCA.py test.taxid.blast
 ```
@@ -35,7 +35,7 @@ This script downloads NCBI lists with gi-numbers and their associated taxIDs, wh
 bash prepare_add_taxid2blast_script.sh
 ```
 #### 3) Add taxid information to blast file by running the script add_taxid2blast.py 
-This script parses the blast file and appends the taxID to the subject sequence identifier (column 2 in blast file). Expected run time ~10min.
+This script parses the blast file and appends the taxID to the subject sequence identifier (column 2 in blast file). Expected run time ~15 min.
 ```
 python add_taxid2blast.py test2.blast
 ```
