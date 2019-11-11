@@ -75,5 +75,9 @@ Options:
                         '-' [default=98-95-90]
 ```
 
+## System Requirements
 
+This software has been tested on the following operating systems:
+-MacOS
+-Linux
 
