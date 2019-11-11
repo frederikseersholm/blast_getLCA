@@ -80,7 +80,7 @@ Options:
 This software has been tested on the following operating systems:
 - macOS Mojave version 10.14.6
 - CentOS Linux 7 (Core)
-- 
+- SUSE Linux Enterprise Server 12 SP3
 
 Software dependencies:
 - python2.7
