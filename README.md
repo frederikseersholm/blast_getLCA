@@ -78,6 +78,6 @@ Options:
 ## System Requirements
 
 This software has been tested on the following operating systems:
--MacOS
--Linux
+- MacOS
+- **Linux**
 
