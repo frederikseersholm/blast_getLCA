@@ -235,7 +235,10 @@ def smartsort(getLCA_lines):
     parents=[]
     for line in getLCA_lines:
 
-        taxid=line.split()[9]
+        if line.split()[1]=='NOMATCH_all_taxids_ignored':
+            taxid=0
+        else:
+            taxid=line.split()[9]
         
         try:
             parents.append(find_parents_smartsort(taxid,line))
