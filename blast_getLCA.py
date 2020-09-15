@@ -267,8 +267,8 @@ def main():
     options, arguments = p.parse_args()
     infiles=arguments
     limits=[int(i) for i in options.limits.split('-')]	
-    print 'Identity threshold: '+str(options.threshold)
-    print 'Identity limits: '+','.join([str(i) for i in limits])
+    print('Identity threshold: '+str(options.threshold))
+    print('Identity limits: '+','.join([str(i) for i in limits]))
     #Open file defining taxids to ingore and store them as a list
     wrong_tax=[]
     if options.wrongtax!=None:
@@ -289,7 +289,7 @@ def main():
     for infile in infiles:
 
         outfile=infile.replace('.blast','')+'.getLCA.tsv'
-        print '\nWriting to: '+outfile
+        print('\nWriting to: '+outfile)
         infile=open(infile,'r')
         outfile=open(outfile,'w')
         count_total=0
