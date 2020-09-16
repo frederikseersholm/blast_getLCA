@@ -11,7 +11,7 @@ def main():
     blastfile=arguments[0]
     if options.outfile is None:
         outfile=blastfile.replace('.blast','.taxid.blast')
-        print 'No output file specified, writing to: '+outfile
+        print('No output file specified, writing to: '+outfile)
     else:
         outfile=options.outfile
     
@@ -46,7 +46,7 @@ def main():
         count+=1
         #if count>1:
         #    break
-        print '\nprocessing file '+str(count)+' of '+str(len(filelist))+'\n'
+        print('\nprocessing file '+str(count)+' of '+str(len(filelist))+'\n')
         acc=open(acc_name,'r')
         acc2taxid={}
         
