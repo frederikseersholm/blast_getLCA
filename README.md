@@ -5,8 +5,7 @@ The blast_getLCA algorithm parses a blast file, typically generated from amplico
 
 #### 1) Download and unpack the blast_getLCA master
 ```
-wget https://github.com/frederikseersholm/blast_getLCA/archive/master.tar.gz
-tar xpvf master.tar.gz
+git clone https://github.com/frederikseersholm/blast_getLCA
 cd blast_getLCA-master
 ```
 #### 2) Run the script prepare_getLCA_script.sh
