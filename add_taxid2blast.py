@@ -63,9 +63,9 @@ def main():
         for acc_nr in acc_list:
 
             if acc_dict[acc_nr]=='TAXID_NOT_FOUND':
-		if 'LOCALDB' in acc_nr:
+                if 'LOCALDB' in acc_nr:
                     acc_dict[acc_nr]=acc_nr.split('LOCALDB')[len(acc_nr.split('LOCALDB'))-1]
-		    continue
+                    continue
                 try:
                     acc_dict[acc_nr]=acc2taxid[acc_nr]
                 
