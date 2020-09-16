@@ -264,12 +264,8 @@ def main():
     p.add_option('--ignoretaxid', '-i',dest="wrongtax",help="csv file of taxids to ignore, first column should contain taxids")
     p.add_option("-t", "--threshold", dest="threshold", default=95, help="Ignores reads where the best alignment has less than a certain percentage identity to the reference [default=95]")
     p.add_option("-l", "--limits", dest="limits", default='98-95-90', help="List of identity thresholds which will inform the algorithm to drop lowest common ancestor to genus (default: 95-98%), family level (default: 90-95%) or order level (default: below 90%). Separated by dash '-' [default=98-95-90]")
-    p.add_option('--outfile', '-o')
     options, arguments = p.parse_args()
     infiles=arguments
-    if options.outfile is None:
-        outfile=blastfile.replace('.blast','.taxid.blast')
-        print('No output file specified, writing to: '+outfile)
     limits=[int(i) for i in options.limits.split('-')]	
     print('Identity threshold: '+str(options.threshold))
     print('Identity limits: '+','.join([str(i) for i in limits]))
@@ -292,7 +288,7 @@ def main():
     
     for infile in infiles:
 
-        outfile=infile.replace('.blast','')+'.getLCA.tsv'
+        outfile=infile.replace('.taxid.blast','')+'.getLCA.tsv'
         print('\nWriting to: '+outfile)
         infile=open(infile,'r')
         outfile=open(outfile,'w')
