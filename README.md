@@ -6,7 +6,7 @@ The blast_getLCA algorithm parses a blast file, typically generated from amplico
 #### 1) Download and unpack the blast_getLCA master
 ```
 git clone https://github.com/frederikseersholm/blast_getLCA
-cd blast_getLCA-master
+cd blast_getLCA
 ```
 #### 2) Run the script prepare_getLCA_script.sh
 This script downloads the NCBI taxonomy files nodes.dmp and names.dmp to the folder 'taxdump', and adds the paths to the files in the python script (expected run time ~1 min).
