@@ -288,7 +288,8 @@ def main():
     
     for infile in infiles:
 
-        outfile=infile.replace('.taxid.blast','')+'.getLCA.tsv'
+        outfile1=infile.replace('.taxid.blast','')+'.getLCA.tsv'
+        outfile=outfile1.split('/')[len(outfile1.split('/'))-1]
         print('\nWriting to: '+outfile)
         infile=open(infile,'r')
         outfile=open(outfile,'w')
