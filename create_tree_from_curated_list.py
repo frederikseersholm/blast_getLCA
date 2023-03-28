@@ -63,7 +63,7 @@ def main():
     if options.outfile is None:
         outfile=infile.replace('.csv','.tre')
         outfile=outfile.split('/')[len(outfile.split('/'))-1]
-        print 'No output file specified, writing to: '+outfile
+        print('No output file specified, writing to: '+outfile)
     else:
         outfile=options.outfile
 
@@ -78,7 +78,7 @@ def main():
             continue
         taxname=line.split(',')[0]
         spec_name=taxname.split('/')[0]
-        print spec_name
+        print(spec_name)
         genus=spec_name.replace('_',' ').split(' ')[0]
         if spec_name=='Mammoth?':
             continue
@@ -86,7 +86,7 @@ def main():
         if 'NOT_FOUND' in genus or 'NOMATCH' in genus:
             continue
         taxid=id_from_name[spec_name.replace('_',' ')]
-        print taxid
+        print(taxid)
 
         if options.wrongtax!='no_ignore':
             if taxid in options.wrongtax.split(','):
@@ -99,14 +99,14 @@ def main():
 
         if options.wronggenus!='no_ignore':
             if sum([i in find_parents(taxid) for i in options.wronggenus.split(',')])>0:
-                print 'ignored',name[taxid]
+                print('ignored',name[taxid])
                 continue
 
 
         if taxid not in taxids:
             taxids.append(taxid)
 
-    print taxids
+    print(taxids)
     ##############FILTER OUT TAXIDS CONTAINED IN OTHER TAXIDS (higher order parents)#############
     parents=[]
 
