@@ -76,7 +76,7 @@ def main():
         count+=1
         if count==1:
             continue
-        taxname=line.split(',')[0]
+        taxname=line.strip().split(',')[0]
         spec_name=taxname.split('/')[0]
         print(spec_name)
         genus=spec_name.replace('_',' ').split(' ')[0]
